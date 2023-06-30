@@ -1,11 +1,13 @@
 
 import React from "react";
-import PropTypes from 'prop-types';
 import { FormContainer, FormLabelName, FormInputName, FormInputTel,  FormButton, ErrorText } from "./ContactForm.styled";
 import { Formik, ErrorMessage } from 'formik';
 import *as yup from 'yup'
-
- const schame = yup.object({
+import { useSelector, useDispatch } from "react-redux";
+import { addContact, getContacts } from "redux/contactsSlice";
+import { nanoid } from "@reduxjs/toolkit";
+ 
+const schame = yup.object({
   name: yup.string("It should be string").required("It shouldn't be empty").max(30).trim().matches(),
   number: yup.number("It shold be number").required().positive()
  });
@@ -24,10 +26,22 @@ const FormError = ({name}) => {
 }
     
 
-function ContactForm({onSubmit}) {
+function ContactForm() {
+    const dispatch = useDispatch()
+    const contacts = useSelector(getContacts)
+    const handleAdd = (values, actions) => {
+        if(contacts.some(({name})=>name===values.name)){
+            alert(`${values.name} is already in contacts`)
+            return
+    } 
+        dispatch(addContact({ ...values, id: nanoid() }))
+        actions.resetForm()
+}
+
+
         return (<Formik
                     initialValues={initialValue}
-                    onSubmit={onSubmit}
+                    onSubmit={handleAdd}
                     validationSchema={schame}
                 >
                         <FormContainer autoComplete="off">
@@ -54,14 +68,6 @@ function ContactForm({onSubmit}) {
 
 
 export default ContactForm
-
-ContactForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    initialValues:PropTypes.exact({
-            name: PropTypes.string.isRequired,
-            number:PropTypes.string.isRequired
-                })
-}
 
 
 
