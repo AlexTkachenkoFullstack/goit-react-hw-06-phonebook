@@ -10,10 +10,10 @@ function Filter() {
         dispatch(setStatusFilter(event.target.value))
     }
 
-         return (<FilterContainer>
-                     <FilterLable htmlFor="findContacts">Find contacts by name</FilterLable>
-                     <FilterInput type="text" id='findContacts' onChange={handleFilterChange}/>
-                 </FilterContainer>
+    return (<FilterContainer>
+                <FilterLable htmlFor="findContacts">Find contacts by name</FilterLable>
+                <FilterInput type="text" id='findContacts' onChange={handleFilterChange}/>
+            </FilterContainer>
                 )
 }
 

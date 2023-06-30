@@ -24,12 +24,13 @@ const reducer = combineReducers({
         contacts: contactsSlice.reducer,
         filter:filterSlice.reducer
 })
+
 const persistedReducer = persistReducer(persistConfig, reducer)
 
 
 export const store = configureStore({
     reducer: persistedReducer,
-  middleware(getDefaultMiddleware) {
+    middleware(getDefaultMiddleware) {
             return getDefaultMiddleware({
                 serializableCheck: {
                     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

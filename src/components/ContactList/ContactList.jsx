@@ -6,12 +6,12 @@ import { getContacts } from "redux/contactsSlice";
 import { getStatusFilter } from "redux/filterSlice";
 
 function ContactList() {
-const contacts=useSelector(getContacts)
-const filter=useSelector(getStatusFilter)
+     const contacts=useSelector(getContacts)
+     const filter=useSelector(getStatusFilter)
     
      function findContacts() {
-    return contacts.filter(({name})=>name.toUpperCase().includes(filter.toUpperCase()))
-  }
+                return contacts.filter(({name})=>name.toUpperCase().includes(filter.toUpperCase()))
+            }
 
      return (
             <ContactListContainer >
